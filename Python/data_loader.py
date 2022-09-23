@@ -1,8 +1,12 @@
 import numpy as np
-import pickle
 
 train_set = []
 test_set = []
+
+train_images = []
+train_labels = []
+test_images = []
+test_labels = []
 
 
 def fetch_data():
@@ -68,21 +72,3 @@ def smooth_data(dataset):
     inputs = np.asarray(inputs)
     labels = np.asarray(labels)
     return inputs, labels
-
-
-class Data:
-    def __init__(self, inputs, labels):
-        self.inputs = inputs
-        self.labels = labels
-
-
-if __name__ == '__main__':
-    fetch_data()
-    inputs, labels = smooth_data(train_set)
-    data = Data(inputs, labels)
-    with open('..\\Datasets\\train_set', 'wb') as train_set:
-        pickle.dump(data, train_set)
-    inputs, labels = smooth_data(test_set)
-    data = Data(inputs, labels)
-    with open('..\\Datasets\\test_set', 'wb') as test_set:
-        pickle.dump(data, test_set)

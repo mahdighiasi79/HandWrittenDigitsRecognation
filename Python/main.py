@@ -1,16 +1,10 @@
 import math
 import numpy as np
-import pickle
+import data_loader as dl
 
 learning_rate = 0
 number_of_epochs = 0
 batch_size = 0
-
-
-class Data:
-    def __init__(self, inputs, labels):
-        self.inputs = inputs
-        self.labels = labels
 
 
 class Model:
@@ -138,30 +132,10 @@ class Model:
 
 if __name__ == '__main__':
 
-    with open('..\\Datasets\\train_set', 'rb') as train_set:
-        data = pickle.load(train_set)
-    train_images = data.inputs
-    train_labels = data.labels
-
+    dl.fetch_data()
+    train_images, train_labels = dl.smooth_data(dl.train_set)
     model = Model()
     model.sgd(train_images, train_labels, learning_rate, number_of_epochs, batch_size)
 
-    with open('..\\Datasets\\test_set', 'rb') as test_set:
-        test_data = pickle.load(test_set)
-    test_images = test_data.inputs
-    test_labels = test_data.labels
-
+    test_images, test_labels = dl.smooth_data(dl.test_set)
     predictions = model.predict(test_images.transpose())
-    predictions = predictions.transpose()
-    true_answers = 0
-    rows, columns = predictions.shape
-    for i in range(rows):
-        flag = True
-        for j in range(columns):
-            if predictions[i][j] != test_labels[i][j]:
-                flag = False
-        if flag:
-            true_answers += 1
-
-    percentage = (true_answers / len(test_labels)) * 100
-    print("percentage: ", percentage)
