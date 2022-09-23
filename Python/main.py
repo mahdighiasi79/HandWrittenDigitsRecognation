@@ -139,3 +139,12 @@ if __name__ == '__main__':
 
     test_images, test_labels = dl.smooth_data(dl.test_set)
     predictions = model.predict(test_images.transpose())
+    predictions = predictions.transpose()
+
+    test_items = len(test_labels)
+    true_answers = 0.0
+    for i in range(test_items):
+        if (test_labels[i] == predictions[i]).all():
+            true_answers += 1
+    percentage = (true_answers / test_items) * 100
+    print("percentage: ", percentage)
