@@ -3,11 +3,6 @@ import numpy as np
 train_set = []
 test_set = []
 
-train_images = []
-train_labels = []
-test_images = []
-test_labels = []
-
 
 def fetch_data():
     # Reading The Train Set
