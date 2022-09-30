@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 
 double **matrix_multiplication(double **matrix1, double **matrix2, int row1, int row2, int column2) {
@@ -149,11 +150,17 @@ double **sum_axis(double **matrix, int axis, int row, int column) {
 }
 
 
-double **copy_matrix(double **matrix, int from, int to) {
+double **copy_matrix(double **matrix, int from, int to, int column) {
     double **result = (double **) malloc((to - from) * sizeof(double *));
+
 #pragma omp parallel for
-    for (int i = from; i < to; i++)
-        result[i] = matrix[i];
+    for (int i = from; i < to; i++) {
+        result[i] = (double *) malloc(column * sizeof(double));
+
+#pragma omp parallel for
+        for (int j = 0; j < column; j++)
+            result[i][j] = matrix[i][j];
+    }
     return result;
 }
 
@@ -213,7 +220,19 @@ double **power_matrix(double **matrix, double p, int row, int column) {
 
 
 double **shuffle(double **matrix, int m) {
-    return NULL;
+    time_t t = time(NULL);
+    srand(t);
+    int r = floor((double) m / 4);
+
+    for (int i = 0; i < r; i++) {
+        int index1 = rand() % m;
+        int index2 = rand() % m;
+        double *temp = matrix[index1];
+        matrix[index1] = matrix[index2];
+        matrix[index2] = temp;
+    }
+
+    return matrix;
 }
 
 

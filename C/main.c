@@ -7,9 +7,9 @@
 #include "dataTypes.h"
 #include "data_loader.h"
 
-#define learning_rate 0.01
-#define batch_size 50
-#define number_of_epochs 5
+#define learning_rate 0
+#define batch_size 0
+#define number_of_epochs 0
 
 
 typedef struct ann {
@@ -59,15 +59,15 @@ void initialize_parameters(Model *model) {
 
     model->b1 = (double **) malloc(16 * sizeof(double *));
     for (int i = 0; i < 16; i++)
-        model->b1[0] = (double *) malloc(sizeof(double));
+        model->b1[i] = (double *) malloc(sizeof(double));
 
     model->b2 = (double **) malloc(16 * sizeof(double *));
     for (int i = 0; i < 16; i++)
-        model->b2[0] = (double *) malloc(sizeof(double));
+        model->b2[i] = (double *) malloc(sizeof(double));
 
     model->b3 = (double **) malloc(10 * sizeof(double *));
     for (int i = 0; i < 10; i++)
-        model->b3[0] = (double *) malloc(sizeof(double));
+        model->b3[i] = (double *) malloc(sizeof(double));
 }
 
 
@@ -232,8 +232,8 @@ void sgd(Model *model, double **inputs, double **labels, int m) {
         inputs = shuffle(inputs, m);
 
         for (int j = 0; j < number_of_batches; j++) {
-            double **x = copy_matrix(inputs, j * batch_size, (j + 1) * batch_size);
-            double **y = copy_matrix(labels, j * batch_size, (j + 1) * batch_size);
+            double **x = copy_matrix(inputs, j * batch_size, (j + 1) * batch_size, 784);
+            double **y = copy_matrix(labels, j * batch_size, (j + 1) * batch_size, 10);
             x = transpose(x, batch_size, 784);
             y = transpose(y, batch_size, 10);
             optimizer_step(x, y, batch_size, model);
