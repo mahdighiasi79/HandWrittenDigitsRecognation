@@ -26,4 +26,14 @@ typedef struct grad {
 } Grads;
 
 
+typedef struct dataset {
+    double **train_images;
+    double **train_labels;
+    double **test_images;
+    double **test_labels;
+    int train_samples;
+    int test_samples;
+} Dataset;
+
+
 #endif //C_DATATYPES_H

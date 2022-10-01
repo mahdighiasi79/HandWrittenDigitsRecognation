@@ -7,9 +7,9 @@
 #include "dataTypes.h"
 #include "data_loader.h"
 
-#define learning_rate 0
-#define batch_size 0
-#define number_of_epochs 0
+#define learning_rate 1
+#define batch_size 1
+#define number_of_epochs 1
 
 
 typedef struct ann {
@@ -244,10 +244,13 @@ void sgd(Model *model, double **inputs, double **labels, int m) {
 
 
 int main() {
-    double **train_images = get_train_images();
-    double **train_labels = get_train_labels();
-    double **test_images = get_test_images();
-    double **test_labels = get_test_labels();
+    Dataset dataset = getDataset();
+    double **train_images = dataset.train_images;
+    double **train_labels = dataset.train_labels;
+    double **test_images = dataset.test_images;
+    double **test_labels = dataset.test_labels;
+    int train_samples = dataset.train_samples;
+    int test_samples = dataset.test_samples;
 
     Model *model = (Model *) malloc(sizeof(Model));
     initialize_parameters(model);
