@@ -103,10 +103,10 @@ double **readLabels(char *address) {
 Dataset getDataset() {
 
     Dataset dataset;
-    dataset.train_images = readImages("D:\\computer\\ComputationalIntelligence\\NeuralNetwork\\p1\\train-images.idx3-ubyte", 1);
-    dataset.train_labels = readLabels("D:\\computer\\ComputationalIntelligence\\NeuralNetwork\\p1\\train-labels.idx1-ubyte");
-    dataset.test_images = readImages("D:\\computer\\ComputationalIntelligence\\NeuralNetwork\\p1\\t10k-images.idx3-ubyte", 0);
-    dataset.test_labels = readLabels("D:\\computer\\ComputationalIntelligence\\NeuralNetwork\\p1\\t10k-labels.idx1-ubyte");
+    dataset.train_images = readImages("..\\Datasets\\train-images.idx3-ubyte", 1);
+    dataset.train_labels = readLabels("..\\Datasets\\train-labels.idx1-ubyte");
+    dataset.test_images = readImages("..\\Datasets\\t10k-images.idx3-ubyte", 0);
+    dataset.test_labels = readLabels("..\\Datasets\\t10k-labels.idx1-ubyte");
     dataset.train_samples = number_of_train_images;
     dataset.test_samples = number_of_test_images;
     return dataset;
